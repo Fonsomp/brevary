@@ -27,9 +27,9 @@ if($_POST['tipoS'] == "Tercera Parte"){
 if($_POST['tipoS'] == "Apéndice Musical"){
 	$subtype = $_POST['AM'];}
 
-//echo $type;
-//echo $oracion;
-$objConexion = new conexionDB();
+echo $type;
+echo $oracion;
+$objConexion = new ConexionDB();
 
 	switch ($oracion) {
 		case 'Breviario':

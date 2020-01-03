@@ -1,10 +1,10 @@
 <?php
-/*error_reporting(0);
-header("Content-Type: text/html;charset=utf-8"); 
-mysql_query("SET NAMES 'utf8'");*/
+error_reporting(0);
+//eader("Content-Type: text/html;charset=utf-8"); 
+mysql_query("SET NAMES 'utf8'");
 
-//class ConexionDB extends mysqli{
-class ConexionDB{
+class ConexionDB extends mysqli{
+//class ConexionDB{
 	
 	private $con;
 	private $host = "localhost";
@@ -27,18 +27,32 @@ class ConexionDB{
     		exit();}
 	}
 
-	public function execute($sql){
-		//mysql_query($sql, $this->con);
-		//mysqli_query($this->con,$sql);
-		$this->con->query($sql) or die($this->con->error);
-		/*if($resultado)
-            return $resultado->fetch_all(MYSQLI_ASSOC);
-        return print 'false';*/
+	public function consulta($sql){
+		$result = $this->con->query($sql) or die($this->con->error);
+		//Si la consulta es exitosa regresa un array asociativo
+		if($result)
+			return $result->fetch_array(MYSQLI_BOTH);	
+        return false;
 	}
+
+	public function contar_filas($sql){
+		$result = $this->con->query($sql) or die($this->con->error);
+		if($result){
+			$row_cnt = $result->num_rows;
+			if($row_cnt == 1){
+				//return printf("Resultado set has %d rows.\n", $row_cnt);
+				return print("<script>alert('Registro Encontrado');</script>");}
+			return print("<script>
+			alert('Registro Vacio!');
+			window.location='controlPanel.php';
+			</script>");
+		}
+	}
+
+	public function modificar($sql){}
 
 
 	function cerrar() {
-		//mysql_close($this->con);
 		$this->con->close();
 	}
 }
