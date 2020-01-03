@@ -3,51 +3,43 @@
 header("Content-Type: text/html;charset=utf-8"); 
 mysql_query("SET NAMES 'utf8'");*/
 
-class ConexionDB extends mysqli{
+//class ConexionDB extends mysqli{
+class ConexionDB{
 	
-	//private $con;
+	private $con;
 	private $host = "localhost";
 	private $user = 'root';
 	private $password = '9876';
 	private $db = 'pruebabrevario';
 
 	public function __construct(){
-		parent:: __construct($this->host, $this->user, $this->password, $this->db);
+		/*parent:: __construct($this->host, $this->user, $this->password, $this->db);
 
 		//Operador ternario para comprobar la conexion
 		$this->connect_errno ? die('Error en la conexión'.mysqli_connect_errno()): $message = 'Conexión OK';
 
-		echo $message;
-	
+		echo $message;*/
 
-
-
-		/*//$host = "45.55.245.201";
-		$host = "localhost";
-		//$user = "uniagusti";
-		$user = "root";
-		$password = "9876";
-		//$db = "breviary";
-		$db = "pruebabrevario";
-
-		//$this->con = mysql_connect($host,$user,$password);
-		$this->con = mysqli_connect($host,$user,$password) or die("sin conexion al servidor");
-		if ($this->con) {
-			//die('Could not connect: ' . mysql_error());
-			echo $this->con;
-		}	
-		//mysql_select_db($db,$this->con) or die("Problemas con la conexion a la DB");
-		mysqli_select_db($this->con,$db) or die("Problemas con la conexion a la DB");*/
+		$this->con = new mysqli($this->host, $this->user, $this->password, $this->db);
+		//$this->con->set_charset("utf8");
+		if (mysqli_connect_errno()) {
+            printf("Falló la conexión failed: %s\n", $this->con->connect_error);
+    		exit();}
 	}
 
 	public function execute($sql){
 		//mysql_query($sql, $this->con);
-		mysqli_query($this->con,$sql);
+		//mysqli_query($this->con,$sql);
+		$this->con->query($sql) or die($this->con->error);
+		/*if($resultado)
+            return $resultado->fetch_all(MYSQLI_ASSOC);
+        return print 'false';*/
 	}
 
 
-	/*function cerrar() {
-		mysql_close($this->con);
-	}*/
+	function cerrar() {
+		//mysql_close($this->con);
+		$this->con->close();
+	}
 }
 ?>

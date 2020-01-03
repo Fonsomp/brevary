@@ -11,11 +11,18 @@ $objConexion = new ConexionDB();
 echo $userlg;
 echo $passwordlg;
 
-/*$sql = mysqli_query("SELECT * FROM users WHERE user='$userlg'");
-$objConexion->execute($sql);
+$sql = "SELECT * FROM users WHERE user='$userlg'";
+$result = $objConexion->execute($sql);
 
-	if($row = mysqli_fetch_assoc($sql)){
-		switch ($userlg) {
+/*foreach ($result as $value)
+      echo $value['id']."-".$value['user']."<br>";*/
+
+	if($row = mysqli_fetch_array($sql)){
+	
+
+	}
+
+		/*switch ($userlg) {
 			case 'admin':
 				if($row['password'] == $passwordlg){
 					session_start();
@@ -62,10 +69,10 @@ $objConexion->execute($sql);
 				alert('Datos erroneos, intente de nuevo');
 				window.location='../index.php';
 				</script>";
-			break;
-		}
+			break;*/
+		//}
 		
-	}
+	/*}
 	else {
 		echo "<script>
 				alert('Datos erroneos, intente de nuevo');
